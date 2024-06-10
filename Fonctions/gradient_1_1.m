@@ -1,4 +1,4 @@
-function a_list = gradient_1_1(u_til, a_0, gamma_0, q, N, mesh_0, dt, Nt, pfun, bound, post_processing)
+function a_list = gradient_1_1(u_til, a_0, gamma_0, q, N, mesh_0, dt, Nt, pfun, bound, post_processing,clean)
 % Reconstructs an approximation of a_* knowing only u on the boundary.
 % It applies a simple gradient descent. If a singular matrix appears in the
 % solving, the values are set to a_0.
