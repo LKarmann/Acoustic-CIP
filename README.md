@@ -6,6 +6,7 @@ Make sure to adapt the path of each file according to the way it is downloaded o
 
 Contains the library of Gypsilab made by Matthieu Aussal.
 Here is the link of his Github repository:
+
 https://github.com/matthieuaussal/gypsilab
 
 %% Functions
@@ -28,4 +29,5 @@ Contains the analyses of the parameters and the methods in Method_1
 
 Contains the analyses of the parameters and the methods in Method_1 and Method_2.
 Data used in these files should be downloaded at:
+
 https://drive.google.com/drive/folders/1lZqGwPlsO6bDliPtMauF0C6jhIodTted?usp=sharing
