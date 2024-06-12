@@ -12,7 +12,7 @@ format long;
 addpath C:\Users\loren\Dropbox\Stage\gypsilab-master\gypsilab-master\openMsh;
 addpath C:\Users\loren\Dropbox\Stage\gypsilab-master\gypsilab-master\openDom;
 addpath C:\Users\loren\Dropbox\Stage\gypsilab-master\gypsilab-master\openFem;
-addpath C:\Users\loren\Dropbox\Stage\Algorithmes;
+addpath C:\Users\loren\Dropbox\Stage\Algorithmes\Functions;
 
 load Data_simulation_1.mat 'C'
 

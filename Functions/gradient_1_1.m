@@ -1,4 +1,4 @@
-function a_list = gradient_1_1(u_til, a_0, gamma_0, q, N, mesh_0, dt, Nt, pfun, bound, post_processing,clean)
+function a_list = gradient_1_1(u_til, a_0, gamma_0, q, N, mesh_0, dt, Nt, pfun, bound, post_processing,intern)
 % Reconstructs an approximation of a_* knowing only u on the boundary.
 % It applies a simple gradient descent. If a singular matrix appears in the
 % solving, the values are set to a_0.
@@ -29,8 +29,8 @@ function a_list = gradient_1_1(u_til, a_0, gamma_0, q, N, mesh_0, dt, Nt, pfun, 
 %                          upright direction.
 %                          "Smooth" means that the data are smoothed using
 %                          a 2D-smoothing with a gaussian method.
-% clean ('logical'): 1 means that the values of the reconstructed a_n are
-%                    set to 1 outside Omega_1.
+% intern ('logical'): 1 means that the values of the reconstructed a_n are
+%                     set to 1 outside Omega_1.
 %
 % Returns:
 % a_list ('double'): Values of the reconstructed a_n at each
@@ -73,12 +73,12 @@ for k = 1:N
     elseif post_processing == "Putup"
         a_n = 1 + abs(1-a_n);
     elseif post_processing == "Smooth"
-        [~, ~, b_n] = mesh2surface(a_n,mesh);
+        [~, ~, b_n] = mesh2surface(a_n,mesh_0);
         b_n = smoothdata2(b_n,'gaussian');
         a_n = reshape(b_n,[],1);
     end
 
-    if clean
+    if intern
         a_n(external) = 1;
     end
 
@@ -91,7 +91,7 @@ end
 
 if anynan(a_n)
     for j = k+1:N+1
-        a_list(:,j) = a_0;
+        a_list(:,j) = zeros(size(a_0));
     end
 end
 end

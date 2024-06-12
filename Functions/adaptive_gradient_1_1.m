@@ -1,4 +1,4 @@
-function a_list = adaptive_gradient_1_1(u_til, a_0, gamma_0, q, tol, N, mesh_0, dt, Nt, pfun, method, bound, post_processing, clean)
+function a_list = adaptive_gradient_1_1(u_til, a_0, gamma_0, q, tol, N, mesh_0, dt, Nt, pfun, method, bound, post_processing, intern)
 % Reconstructs an approximation of a_* knowing only u on the boundary.
 % It applies a simple gradient descent with adaptive mesh refinement.
 % If a singular matrix appears in the solving, the values are set to an
@@ -32,8 +32,8 @@ function a_list = adaptive_gradient_1_1(u_til, a_0, gamma_0, q, tol, N, mesh_0, 
 %                          "Cutoff" means that values under 1 are set to 1.
 %                          "Putup" means that values under 1 are set in the
 %                          upright direction.
-% clean ('logical'): 1 means that the values of the reconstructed a_n are
-%                    set to 1 outside Omega_1.
+% intern ('logical'): 1 means that the values of the reconstructed a_n are
+%                     set to 1 outside Omega_1.
 %
 % Returns:
 % a_list (N+1 x 2 'cell'): Values of the reconstructed a_n at each
@@ -77,7 +77,7 @@ for k = 1:N
 
     a_n = refine_values(a_0,mesh_0,mesh_n,"nearest") - k^q * g_n / gamma_0;
 
-    if clean
+    if intern
         external = mesh_n.vtx(:,1) <= 0 | mesh_n.vtx(:,2) <= 0 | mesh_n.vtx(:,1) >= 1 | mesh_n.vtx(:,2) >= 1;
         a_n(external) = 1;
     end
@@ -130,7 +130,7 @@ for k = 1:N
 end
 
 if anynan(a_n)
-    a = refine_values(a_0,mesh_0,mesh_n,"nearest");
+    a = zeros(size(mesh_n.vtx(:,1)));
 
     for j = k+1:N+1
         a_list{j,1} = a;

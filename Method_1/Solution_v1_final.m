@@ -14,7 +14,7 @@ format long;
 addpath C:\Users\loren\Dropbox\Stage\gypsilab-master\gypsilab-master\openMsh;
 addpath C:\Users\loren\Dropbox\Stage\gypsilab-master\gypsilab-master\openDom;
 addpath C:\Users\loren\Dropbox\Stage\gypsilab-master\gypsilab-master\openFem;
-addpath C:\Users\loren\Dropbox\Stage\Algorithmes\Fonctions\;
+addpath C:\Users\loren\Dropbox\Stage\Algorithmes\Functions\;
 
 
 %% Definition of parameters
