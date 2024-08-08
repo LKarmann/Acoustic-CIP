@@ -10,10 +10,10 @@ clear;
 close all;
 format long;
 
-addpath C:\Users\loren\Dropbox\Stage\gypsilab-master\gypsilab-master\openMsh;
-addpath C:\Users\loren\Dropbox\Stage\gypsilab-master\gypsilab-master\openDom;
-addpath C:\Users\loren\Dropbox\Stage\gypsilab-master\gypsilab-master\openFem;
-addpath C:\Users\loren\Dropbox\Stage\Algorithmes\Functions;
+addpath \gypsilab-master\gypsilab-master\openMsh;
+addpath \gypsilab-master\gypsilab-master\openDom;
+addpath \gypsilab-master\gypsilab-master\openFem;
+addpath \Functions;
 
 
 %% Load the data
@@ -21,10 +21,10 @@ addpath C:\Users\loren\Dropbox\Stage\Algorithmes\Functions;
 % Without boundary post-processing
 
 % Test 1: 1 inclusion
-load C:\Users\loren\Dropbox\Stage\Algorithmes\Github\Data_simulation_1\Data_simulation_1.mat 'C'
+load \Data_simulation_1\Data_simulation_1.mat 'C'
 
 % Test 2: 2 inclusions
-% load C:\Users\loren\Dropbox\Stage\Algorithmes\Github\Data_simulation_1\Data_simulation_1_2.mat 'C'
+% load \Data_simulation_1\Data_simulation_1_2.mat 'C'
 
 % Extraction of the numerical values
 error_mat_1 = cell2mat(C(2:end,[1,2,3,4,7,8,9]));
@@ -33,10 +33,10 @@ error_mat_1 = cell2mat(C(2:end,[1,2,3,4,7,8,9]));
 % With boundary post-processing
 
 % Test 1: 1 inclusion
-load C:\Users\loren\Dropbox\Stage\Algorithmes\Github\Data_simulation_1\Data_simulation_1_post.mat 'C'
+load \Data_simulation_1\Data_simulation_1_post.mat 'C'
 
 % Test 2: 2 inclusions
-% load C:\Users\loren\Dropbox\Stage\Algorithmes\Github\Data_simulation_1\Data_simulation_1_2_post.mat 'C'
+% load \Data_simulation_1\Data_simulation_1_2_post.mat 'C'
 
 % Extraction of the numerical values
 error_mat_2 = cell2mat(C(2:end,[1,2,3,4,7,8]));
