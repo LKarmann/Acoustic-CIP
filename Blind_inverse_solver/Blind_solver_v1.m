@@ -14,7 +14,7 @@ format long;
 addpath \gypsilab-master\gypsilab-master\openMsh;
 addpath \gypsilab-master\gypsilab-master\openDom;
 addpath \gypsilab-master\gypsilab-master\openFem;
-addpath \Functions;
+addpath Functions;
 
 
 %% Definition of the parameters
