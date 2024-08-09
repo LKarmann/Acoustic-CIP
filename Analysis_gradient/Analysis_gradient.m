@@ -11,10 +11,10 @@ clear;
 close all;
 format long;
 
-addpath C:\Users\loren\Dropbox\Stage\gypsilab-master\gypsilab-master\openMsh;
-addpath C:\Users\loren\Dropbox\Stage\gypsilab-master\gypsilab-master\openDom;
-addpath C:\Users\loren\Dropbox\Stage\gypsilab-master\gypsilab-master\openFem;
-addpath C:\Users\loren\Dropbox\Stage\Algorithmes\Functions;
+addpath \gypsilab-master\gypsilab-master\openMsh;
+addpath \gypsilab-master\gypsilab-master\openDom;
+addpath \gypsilab-master\gypsilab-master\openFem;
+addpath \Functions;
 
 
 %% Definition of the parameters
@@ -114,7 +114,7 @@ a_0 = ones(size(a_exact));
 % % save \Data_Analysis_gradient_1_1_gamma.mat 'gamma_list' 'error_list' 'error_list_cut' 'error_list_put'
 % 
 % % Load the data
-% load C:\Users\loren\Dropbox\Stage\Algorithmes\Conjugate_gradient\Data_simulation_gradient\Data_Analysis_gradient_1_1_gamma.mat 'gamma_list' 'error_list' 'error_list_cut' 'error_list_put'
+% load \Data_simulation_gradient\Data_Analysis_gradient_1_1_gamma.mat 'gamma_list' 'error_list' 'error_list_cut' 'error_list_put'
 % 
 % % Plot the results
 % figure
@@ -161,7 +161,7 @@ a_0 = ones(size(a_exact));
 % % save \Data_Analysis_gradient_1_1_gamma_bound.mat 'gamma_list' 'error_list' 'error_list_cut' 'error_list_put'
 % 
 % % Load the data
-% load C:\Users\loren\Dropbox\Stage\Algorithmes\Conjugate_gradient\Data_simulation_gradient\Data_Analysis_gradient_1_1_gamma_bound.mat 'gamma_list' 'error_list' 'error_list_cut' 'error_list_put'
+% load \Data_simulation_gradient\Data_Analysis_gradient_1_1_gamma_bound.mat 'gamma_list' 'error_list' 'error_list_cut' 'error_list_put'
 % 
 % % Plot the results
 % figure
@@ -208,7 +208,7 @@ a_0 = ones(size(a_exact));
 % % save \Data_Analysis_gradient_1_1_q.mat 'q_list' 'error_list' 'error_list_cut' 'error_list_put'
 % 
 % % Load the data
-% load C:\Users\loren\Dropbox\Stage\Algorithmes\Conjugate_gradient\Data_simulation_gradient\Data_Analysis_gradient_1_1_q.mat 'q_list' 'error_list' 'error_list_cut' 'error_list_put'
+% load \Data_simulation_gradient\Data_Analysis_gradient_1_1_q.mat 'q_list' 'error_list' 'error_list_cut' 'error_list_put'
 % 
 % % Plot the results
 % figure
@@ -259,7 +259,7 @@ a_0 = ones(size(a_exact));
 % % save \Data_Analysis_gradient_1_1_q_bound.mat 'q_list' 'error_list' 'error_list_cut' 'error_list_put'
 % 
 % % Load the data
-% load C:\Users\loren\Dropbox\Stage\Algorithmes\Conjugate_gradient\Data_simulation_gradient\Data_Analysis_gradient_1_1_q_bound.mat 'q_list' 'error_list' 'error_list_cut' 'error_list_put'
+% load \Data_simulation_gradient\Data_Analysis_gradient_1_1_q_bound.mat 'q_list' 'error_list' 'error_list_cut' 'error_list_put'
 % 
 % % Plot the results
 % figure
@@ -312,7 +312,7 @@ a_0 = ones(size(a_exact));
 % %     error_4_1 error_4_2 error_1_1bis error_1_2bis error_2_1bis error_2_2bis error_3_1bis error_3_2bis error_4_1bis error_4_2bis
 % 
 % % Load the data
-% load C:\Users\loren\Dropbox\Stage\Algorithmes\Conjugate_gradient\Data_simulation_gradient\Data_Analysis_gradient_1_1_post_processing.mat error_1_1 error_1_2 error_2_1 error_2_2...
+% load \Data_simulation_gradient\Data_Analysis_gradient_1_1_post_processing.mat error_1_1 error_1_2 error_2_1 error_2_2...
 % error_3_1 error_3_2 error_4_1 error_4_2 error_1_1bis error_1_2bis error_2_1bis error_2_2bis error_3_1bis error_3_2bis error_4_1bis error_4_2bis
 % 
 % % Plot the results
@@ -395,7 +395,7 @@ a_0 = ones(size(a_exact));
 % % % Save the data for future analysis
 % % save \Data_Analysis_gradient_1_1_Nt.mat error_1 error_3 error_4 error_1bis error_3bis error_4bis
 % 
-% load C:\Users\loren\Dropbox\Stage\Algorithmes\Conjugate_gradient\Data_simulation_gradient\Data_Analysis_gradient_1_1_Nt.mat error_1 error_3 error_4 error_1bis error_3bis error_4bis
+% load \Data_simulation_gradient\Data_Analysis_gradient_1_1_Nt.mat error_1 error_3 error_4 error_1bis error_3bis error_4bis
 % 
 % % Plot the results
 % figure
@@ -501,7 +501,7 @@ a_0 = ones(size(a_exact));
 % % save \Data_Analysis_gradient_1_1_hbis.mat error_1 error_3 error_4 error_1bis error_3bis error_4bis
 % 
 % % Load the data
-% load C:\Users\loren\Dropbox\Stage\Algorithmes\Conjugate_gradient\Data_simulation_gradient\Data_Analysis_gradient_1_1_hbis.mat error_1 error_3 error_4 error_1bis error_3bis error_4bis
+% load \Data_simulation_gradient\Data_Analysis_gradient_1_1_hbis.mat error_1 error_3 error_4 error_1bis error_3bis error_4bis
 % 
 % % Plot the results
 % figure
@@ -664,7 +664,7 @@ a_0 = ones(size(a_exact));
 % % save \Data_Analysis_gradient_1_1_tol.mat 'tol_list' 'error_list_cut_1' 'error_list_cut_2' 'error_list_put_1' 'error_list_put_2'
 % 
 % % Load the data
-% load C:\Users\loren\Dropbox\Stage\Algorithmes\Conjugate_gradient\Data_simulation_gradient\Data_Analysis_gradient_1_1_tol.mat 'tol_list' 'error_list_cut_1' 'error_list_cut_2' 'error_list_put_1' 'error_list_put_2'
+% load \Data_simulation_gradient\Data_Analysis_gradient_1_1_tol.mat 'tol_list' 'error_list_cut_1' 'error_list_cut_2' 'error_list_put_1' 'error_list_put_2'
 % 
 % % Plot the results
 % figure
@@ -706,7 +706,7 @@ a_0 = ones(size(a_exact));
 % % save C:\Users\loren\Dropbox\Stage\Algorithmes\Data_Analysis_gradient_1_1_mean.mat error_1 error_1_2 error_3 error_3_2 error_4 error_4_2
 % 
 % % Load the data
-% load C:\Users\loren\Dropbox\Stage\Algorithmes\Conjugate_gradient\Data_simulation_gradient\Data_Analysis_gradient_1_1_mean.mat error_1 error_1_2 error_3 error_3_2 error_4 error_4_2
+% load \Data_simulation_gradient\Data_Analysis_gradient_1_1_mean.mat error_1 error_1_2 error_3 error_3_2 error_4 error_4_2
 % 
 % % Plot the results
 % figure
