@@ -1,31 +1,32 @@
-function [U_list, mesh, t_list] = forward_solver_method2_1(h, dt, Nt, afun, pfun, delta, theta)
+function [Uh,mesh,t_list] = forward_solver_method2_1(h,dt,Nt,afun,pfun,delta,theta)
 % Solves the wave equation with inhomogeneous Neumann boundary conditions 
-% as explained in Method 2.1.
-% See documentation of Gypsilab.
+% as described in Problem (1). Uses the undamped Newmark numerical
+% integration to solve the problem.
+% See documentation of Gypsilab and Appendix C.
 %
 % Arguments:
 % h ('scalar'): Mesh size parameter. Mesh grid should not have a finite
 %               element diameter greater than h.
-% dt ('scalar'): Time-step for the time discretization.
-% Nt ('integer'): Number of time-steps.
+% dt ('scalar'): Time step for the time discretisation.
+% Nt ('integer'): Number of time steps. Corresponds to Nt+1 time steps or
+%                 T = Nt x dt.
 % afun ('function_handle'): Wave speed function of 3D spatial variable.
-% pfun ('function_handle'): Boundary condition function that appears in
-%                           Method 2. Must be a function of time.
+% pfun ('function_handle'): Boundary condition function p(t). 
+%                           Must be a function of time.
 % delta ('scalar'): Parameter for the Newmark numerical integration.
 %                   Must be between 1/2 and 1.
 % theta ('scalar'): Parameter for the Newmark numerical integration.
 %                   Must be between 0 and 1/2.
 %
 % Returns:
-% U_list (Nx(Nt+1) 'double'): Values of the solution u on the N nodes of
-%                             the mesh at each time step.
+% Uh (Nx(Nt+1) 'double'): Values of the solution uh on the N nodes of
+%                         the mesh at each time step.
 % mesh ('msh'): Mesh used to solve.
 %               See documentation of Gypsilab.
-% t_list(1x(Nt+1) 'double'): Time discretization.
+% t_list (1x(Nt+1) 'double'): Time discretisation.
 
 
-
-% Discretization of the time
+% Discretisation of the time
 t_list = 0:dt:Nt*dt;
 
 
@@ -49,7 +50,7 @@ Sigma = dom(meshb, 3);     % 1  2  3  4  5
 Vh = fem(mesh, 'P1');
 
 
-% Solving wave equation with Newmark method
+% Solving wave equation with undamped Newmark method
 K = integral(Omega, grad(Vh), grad(Vh));
 
 M = integral(Omega, Vh, afun, Vh);
@@ -61,7 +62,6 @@ bound_fun = @(X) (abs(X(:,2) - 1.5) < dx/3);
 B = integral(Sigma, Vh, bound_fun);
 
 
-U_list = undamped_newmark(M,K,@(t) pfun(t)*B,zeros(size(B)),zeros(size(B)),dt,Nt,delta,theta);
-
+Uh = undamped_newmark(M,K,@(t) pfun(t)*B,zeros(size(B)),zeros(size(B)),dt,Nt,delta,theta);
 
 end

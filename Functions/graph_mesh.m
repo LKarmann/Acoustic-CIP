@@ -1,13 +1,14 @@
 function graph_mesh(x,mesh,Gypsilab)
-% Plots the values of x defined over mesh.
+% Plots the values of x defined over mesh and displays the edges of the 
+% mesh.
 % See documentation of Gypsilab.
 %
 % Arguments:
 % x ('double'): Values to be plot over mesh.
 % mesh ('msh'): Mesh used to define x.
 %               See documentation of Gypsilab.
-% Gypsilab ('logical'): 1 means that x is displayed by Gypsilab function
-%                       graph. 0 means that x is displayed by
+% Gypsilab ('logical'): 1 means that x is displayed using Gypsilab function
+%                       graph. 0 means that x is displayed using
 %                       triangulation.
 %
 % Returns:

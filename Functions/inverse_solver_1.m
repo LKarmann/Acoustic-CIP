@@ -1,19 +1,23 @@
-function [Anh, submesh] = inverse_solver_1(wh, mesh, h, s, Proposal)
-% Solves the inverse problem using the knowledge of wh at internal nodes.
+function [Ah,submesh] = inverse_solver_1(wh,mesh,h,s,Proposal)
+% Solves Inverse problem 1 using the knowledge of wh at internal nodes.
+% First implementation of the inverse solver, relies on various proposals
+% for the computation of the normal derivative.
+% See Appendix D.2.
 %
 % Arguments:
-% wh ('double'): Function which is the solution of Method 1.
+% wh ('double'): Laplace transform of the solution of a forward problem.
 % mesh ('msh'): Mesh on which wh has been calculated.
 %               See documentation of Gypsilab.
 % h ('scalar'): Mesh size parameter. Mesh grid should not have a finite
 %               element diameter greater than h.
-% s ('scalar'): Pseudo-frequency at which equation is solved.
+% s ('scalar'): Pseudo-frequency at which the equation is solved.
 % Proposal ('int'): Proposal for a calculation at the vertices of the
 %                   square.
+%                   See Appendix D.2.
 %
 % Returns:
-% Anh ('double'): Reconstructed function on the internal mesh.
-% submesh ('msh'): Mesh on which Anh has been calculated.
+% Ah ('double'): Reconstructed acoustic coefficient.
+% submesh ('msh'): Mesh of ]0, 1[x]0, 1[ on which Ah has been calculated.
 %                  See documentation of Gypsilab.
 
 
@@ -45,19 +49,19 @@ Kh = integral(Omega2, grad(Vh2), grad(Vh2));
 Mh = integral(Omega2, Vh2, Vh2);
 
 % Weight vector
-Wnh = wh(mesh.vtx(:,1) >=0 & mesh.vtx(:,2) >=0 & mesh.vtx(:,1) <=1 & mesh.vtx(:,2) <=1);
+Wh = wh(mesh.vtx(:,1) >=0 & mesh.vtx(:,2) >=0 & mesh.vtx(:,1) <=1 & mesh.vtx(:,2) <=1);
 
 % Weighted mass matrix
-Mnh = Wnh .* Mh;
+Mh_2 = Mh .* Wh';
 
 % Boundary vector
-Fnh = integral(Sigma2, Vh2, @(X) funFn(X, wh, mesh, submeshb, Proposal));
+Fh = integral(Sigma2, Vh2, @(X) funFn(X, wh, mesh, submeshb, Proposal));
 
 % Right-hand vector
-bnh = (Fnh - Kh * Wnh) /(s^2);
+bh = (Fh - Kh * Wh) /(s^2);
 
 
 % Solving the linear system
-Anh = Mnh \ bnh;
+Ah = Mh_2 \ bh;
 
 end

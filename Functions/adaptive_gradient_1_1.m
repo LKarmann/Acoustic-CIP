@@ -1,8 +1,9 @@
-function a_list = adaptive_gradient_1_1(u_til, a_0, gamma_0, q, tol, N, mesh_0, dt, Nt, pfun, method, bound, post_processing, intern)
+function a_list = adaptive_gradient_1_1(u_til,a_0,gamma_0,q,tol,N,mesh_0,dt,Nt,pfun,method,bound,post_processing,intern)
 % Reconstructs an approximation of a_* knowing only u on the boundary.
 % It applies a simple gradient descent with adaptive mesh refinement.
 % If a singular matrix appears in the solving, the values are set to an
 % interpolated a_0.
+% See Subsection 3.3.
 %
 % Arguments:
 % u_til (Mx(Nt+1) 'double'): Scattered values of the measurement on the
@@ -10,18 +11,20 @@ function a_list = adaptive_gradient_1_1(u_til, a_0, gamma_0, q, tol, N, mesh_0, 
 %                            only on the top side.
 % a_0 ('double'): Scattered values of the initial guess for the wave
 %                 coefficient.
-% gamma_0 ('scalar'): Regularization parameter for the Tikhonov functional.
-% q ('scalar'): Exposant parameter for the decreasing of the regularization
-%               paramaeter. Should be between 0 and 1.
-% tol ('scalar'): Tolerance level for refining the mesh. Must be between 0
-%                 and 1.
+% gamma_0 ('scalar'): Regularisation parameter for the Tikhonov functional.
+% q ('scalar'): Exponent parameter for the decreasing of the regularisation
+%               parameter. Should be between 0 and 1.
+% tol ('scalar'): Tolerance level for refining the mesh. Nodes with values
+%                 greater than tol x max are refined. 
+%                 Must be between 0 and 1.
 % N ('int'): Number of iterations of the gradient method.
 % mesh_0 ('msh'): Mesh used for the initialisation.
 %                 See documentation of Gypsilab.
-% dt ('scalar'): Time-step for the time discretization.
-% Nt ('integer'): Number of time-steps.
-% pfun ('function_handle'): Boundary condition function that appears in
-%                           Method 2. Must be a function of time.
+% dt ('scalar'): Time step for the time discretisation.
+% Nt ('integer'): Number of time steps. Corresponds to Nt+1 time steps or
+%                 T = Nt x dt.
+% pfun ('function_handle'): Boundary condition function p(t). 
+%                           Must be a function of time.
 % method ('str'): Method used for the interpolation of the values at each
 %                 refining. Should be "nearest" or "linear".
 % bound ('logical'): Indicates if the scattered data are given on the whole
@@ -41,6 +44,7 @@ function a_list = adaptive_gradient_1_1(u_til, a_0, gamma_0, q, tol, N, mesh_0, 
 %                          The first column contains the values of a_n and
 %                          the second contains the mesh over which it is
 %                          defined.
+
 
 a_list = cell(N+1,2);
 a_list{1,1} = a_0;

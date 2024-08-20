@@ -5,15 +5,15 @@ function [x,y,z] = mesh2surface(u,mesh)
 % an irregular mesh of a square.
 %
 % Arguments:
-% u (n^2x1 'double'): Values of a function on the nodes of mesh. Indices
-%                     between u and mesh should be coincident.
+% u ((N^2)x1 'double'): Values of a function on the nodes of mesh. Indices
+%                       between u and mesh should be coincident.
 % mesh ('msh'): Mesh on which u is defined.
 %               See documentation of Gypsilab.
 %
 % Returns:
-% x (nx1 'double'): x-discretization coordinates of the square.
-% y (nx1 'double'): y-discretization coordinates of the square.
-% z (nxn 'double'): Values of u associated to the square mesh (x,y).
+% x (Nx1 'double'): x-discretisation coordinates of the square.
+% y (Nx1 'double'): y-discretisation coordinates of the square.
+% z (NxN 'double'): Values of u associated to the square mesh (x,y).
 
 
 x = unique(mesh.vtx(:,1));

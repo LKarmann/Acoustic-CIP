@@ -1,21 +1,21 @@
-function u = principal_solver_1_1(mesh, dt, Nt, a, pfun)
-% Solves the principal problem for Equation 1.1 for the gradient method. It
-% is solved as in forward_solver2_1 but with delta = 1/2 and theta = 1/2
-% and with an acceleration of the resolution.
-% See documentation of Gypsilab.
+function u = principal_solver_1_1(mesh,dt,Nt,a,pfun)
+% Solves the principal problem, Problem (1). Applies the method
+% forward_solver_method2_1 with delta = 1/2 and theta = 1/2.
+% See documentation of Gypsilab and Appendices C and I.
 %
 % Arguments:
 % mesh ('msh'): Mesh used to solve the equation.
 %               See documentation of Gypsilab.
-% dt ('scalar'): Time-step for the time discretization.
-% Nt ('integer'): Number of time-steps.
+% dt ('scalar'): Time step for the time discretisation.
+% Nt ('integer'): Number of time steps. Corresponds to Nt+1 time steps or
+%                 T = Nt x dt.
 % a ('double'): Scattered values of an approximated acoustic wave
 %               coefficient.
-% pfun ('function_handle'): Boundary condition function that appears in
-%                           Method 2. Must be a function of time.
+% pfun ('function_handle'): Boundary condition function p(t). 
+%                           Must be a function of time.
 %
 % Returns:
-% u (Nx(Nt+1) 'double'): Values of the solution u on the N nodes of
+% u (Nx(Nt+1) 'double'): Values of the solution uh on the N nodes of
 %                        the mesh at each time step.
 
 

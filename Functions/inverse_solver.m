@@ -1,20 +1,20 @@
-function [Anh, submesh] = inverse_solver(wh, mesh, s)
-% Solves the inverse problem using the knowledge of wh at internal nodes.
+function [Ah,submesh] = inverse_solver(wh,mesh,s)
+% Solves Inverse problem 1 using the knowledge of wh at internal nodes.
+% See Subsection 2.1.
 %
 % Arguments:
-% wh ('double'): Function which is the solution of Method 1.
+% wh ('double'): Laplace transform of the solution of a forward problem.
 % mesh ('msh'): Mesh on which wh has been calculated.
 %               See documentation of Gypsilab.
-% s ('scalar'): Pseudo-frequency at which equation is solved.
+% s ('scalar'): Pseudo-frequency at which the equation is solved.
 %
 % Returns:
-% Anh ('double'): Reconstructed function on the internal mesh.
-% submesh ('msh'): Mesh on which Anh has been calculated.
+% Ah ('double'): Reconstructed acoustic coefficient.
+% submesh ('msh'): Mesh of ]0, 1[x]0, 1[ on which Ah has been calculated.
 %                  See documentation of Gypsilab.
 
 
 N = round(sqrt(size(mesh.vtx,1))-1);                                % Number of points
-
 
 % Creation of the submesh
 submesh = mshSquare2(N/2, [0,1,0,1]);
@@ -37,22 +37,23 @@ Kh = integral(Omega2, grad(Vh2), grad(Vh2));
 Mh = integral(Omega2, Vh2, Vh2);
 
 % Weight vector
-Wnh = wh(mesh.vtx(:,1) >=0 & mesh.vtx(:,2) >=0 & mesh.vtx(:,1) <=1 & mesh.vtx(:,2) <=1);
+Wh = wh(mesh.vtx(:,1) >=0 & mesh.vtx(:,2) >=0 & mesh.vtx(:,1) <=1 & mesh.vtx(:,2) <=1);
 
 % Weighted mass matrix
-Mnh = Wnh .* Mh;
+Mh_2 = Mh .* Wh';
 
 % Boundary vector
 
 % Auxiliar function
 function y = auxfunFn(X, wh, mesh, submeshb)
 % Calculates the normal derivative of wh on the boundary using discrete
-% derivative.
+% derivative. Errors might be observed on vertices of the square.
+% See funFn.
 %
 % Arguments:
-% X (nx3 'double'): Position for a calculation of an integral.
+% X (Nx3 'double'): Position for a calculation of an integral.
 %                   See documentation of Gypsilab.
-% wh ('double'): Function which is the solution of Method 1.
+% wh ('double'): Laplace transform of the solution of a forward problem.
 % mesh ('msh'): Mesh on which wh has been calculated.
 %               See documentation of Gypsilab.
 % submeshb ('msh'): Mesh of the boundary of the sub-open set.
@@ -109,13 +110,13 @@ end
 end
 
 
-Fnh = integral(Sigma2, Vh2, @(X) auxfunFn(X, wh, mesh, submeshb));
+Fh = integral(Sigma2, Vh2, @(X) auxfunFn(X, wh, mesh, submeshb));
 
 % Right-hand vector
-bnh = (Fnh - Kh * Wnh) /(s^2);
+bh = (Fh - Kh * Wh) /(s^2);
 
 
 % Solving the linear system
-Anh = Mnh \ bnh;
+Ah = Mh_2 \ bh;
 
 end

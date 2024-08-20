@@ -1,10 +1,11 @@
 function mesh = mshSquare2(N,L)
 % Creates a standard mesh on a square using Delaunay Triangulation.
+% Adaptation of the function mshSquare from Gypsilab.
 %
 % Arguments:
-% N ('int'): Number of triangles by side/ N+1 points by side.
-% L (4x1 matrix): Position of the vertex of the square.
-%                 If L = [a b c d], then the square is [a; b]x[c; d].
+% N ('int'): Number of triangles by side (N+1 points by side).
+% L (4x1 'double'): Position of the vertices of the square.
+%                   If L = [a b c d], then the square is [a, b]x[c, d].
 %
 % Returns:
 % mesh ('msh'): Mesh of the class 'msh' from "openMsh" in Gypsilab.

@@ -1,24 +1,27 @@
-function [Anh, submesh] = inverse_solver_2(wh, mesh, h, s, pfun, Extraction)
-% Solves the inverse problem using the knowledge of wh at internal nodes
-% according to Idea II.2.
+function [Ah,submesh] = inverse_solver_2(wh,mesh,h,s,pfun,Extraction)
+% Solves Inverse problem 1 using the knowledge of wh at internal nodes.
+% Uses the method of reconstruction in Omega instead of Omega_1.
+% See Appendix D.3.
 %
 % Arguments:
-% wh ('double'): Function which is the solution of Method 1.
+% wh ('double'): Laplace transform of the solution of a forward problem.
 % mesh ('msh'): Mesh on which wh has been calculated.
 %               See documentation of Gypsilab.
 % h ('scalar'): Mesh size parameter. Mesh grid should not have a finite
 %               element diameter greater than h.
-% s ('scalar'): Pseudo-frequency at which equation is solved.
+% s ('scalar'): Pseudo-frequency at which the equation is solved.
 % pfun ('function_handle'): Boundary condition function that appears in
-%                           Method 1.
-% Extraction ('logical'): 1 means that the return is the extracted value of
-%                         Anh over the internal subset.
+%                           Method 1. Should be a function of the space.
+%                           Corresponds to the Laplace transform of p(t).
+% Extraction ('logical'): 1 means that Ah are the extracted values in
+%                         Omega_1. 0 means that Ah are the values in Omega.
 %
 % Returns:
-% Anh ('double'): Reconstructed function on the mesh.
-% submesh ('msh'): Mesh on which Anh has been calculated.
+% Ah ('double'): Reconstructed acoustic coefficient.
+% submesh ('msh'): Mesh on which Ah has been calculated.
+%                  If Extraction = 1, then submesh is a mesh of 
+%                  ]0, 1[x]0, 1[. Else, submesh is mesh.
 %                  See documentation of Gypsilab.
-
 
 
 % Creation of the boundary
@@ -41,20 +44,20 @@ Kh = integral(Omega, grad(Vh), grad(Vh));
 Mh = integral(Omega, Vh, Vh);
 
 % Weight vector
-Wnh = wh;
+Wh = wh;
 
 % Weighted mass matrix
-Mnh = Wnh .* Mh;
+Mh_2 = Mh .* Wh';
 
 % Boundary vector
 Fh = integral(Sigma, Vh, pfun);
 
 % Right-hand vector
-bnh = (Fh - Kh * Wnh) /(s^2);
+bh = (Fh - Kh * Wh) /(s^2);
 
 
 % Solving the linear system
-Anh = Mnh \ bnh;
+Ah = Mh_2 \ bh;
 
 if Extraction
 
@@ -62,7 +65,7 @@ if Extraction
     
     submesh = mshSquare2(N/2, [0,1,0,1]);
 
-    Anh = Anh(mesh.vtx(:,1) >=0 & mesh.vtx(:,2) >=0 & mesh.vtx(:,1) <=1 & mesh.vtx(:,2) <=1);
+    Ah = Ah(mesh.vtx(:,1) >=0 & mesh.vtx(:,2) >=0 & mesh.vtx(:,1) <=1 & mesh.vtx(:,2) <=1);
 
 else
     submesh = mesh;

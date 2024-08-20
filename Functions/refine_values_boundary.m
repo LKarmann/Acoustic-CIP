@@ -1,14 +1,15 @@
 function y = refine_values_boundary(x,bound,bound_ref,dx,method)
-% Interpolates values of x on mesh to a refined mesh, mesh_ref.
+% Interpolates values of x defined on the boundary of a mesh, bound, to the
+% boundary of a refined mesh, bound_ref.
 % See documentation of Gypsilab.
 %
 % Arguments:
 % x ('vector'): Values that must be interpolated.
-% bound ('double'): Coordinates of the boundary of the mesh on which x is
-%                   defined.
+% bound ('double'): Coordinates of the nodes on the boundary of the mesh on
+%                   which x is defined.
 %                   See documentation of Gypsilab.
-% bound_ref ('double'): Coordinates of the boundary of the refined mesh on 
-%                       which y is defined.
+% bound_ref ('double'): Coordinates of the nodes on the boundary of the 
+%                       refined mesh on which y is defined.
 %                       See documentation of Gypsilab.
 % dx ('scalar'): Minimal step size of the boundary bound.
 % method ('str'): Method used for the interpolation. 

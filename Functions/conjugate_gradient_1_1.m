@@ -1,8 +1,8 @@
-function a_list = gradient_1_1(u_til,a_0,gamma_0,q,N,mesh_0,dt,Nt,pfun,bound,post_processing,intern)
+function a_list = conjugate_gradient_1_1(u_til,a_0,gamma_0,q,N,mesh_0,dt,Nt,pfun,bound,post_processing,intern)
 % Reconstructs an approximation of a_* knowing only u_til on the boundary.
-% It applies a simple gradient descent. If a singular matrix appears in the
-% solving, the values are set to a_0.
-% See Section 3.
+% It applies a conjugate gradient descent. If a singular matrix appears in
+% the solving, the values are set to a_0.
+% See Appendix J.2.
 %
 % Arguments:
 % u_til (Mx(Nt+1) 'double'): Scattered values of the measurement on the
@@ -56,6 +56,9 @@ external = mesh_0.vtx(:,1) <= 0 | mesh_0.vtx(:,2) <= 0 | mesh_0.vtx(:,1) >= 1 | 
 
 a_n = a_0;
 
+norm_g_nm1 = 1;
+d_n = zeros(size(a_0));
+
 for k = 1:N
     u_n = principal_solver_1_1(mesh_0,dt,Nt,a_n,pfun);
 
@@ -69,7 +72,17 @@ for k = 1:N
         g_n = g_n - (u_n(:,j+1)-u_n(:,j)) .* (lam_n(:,j+1)-lam_n(:,j))/dt;
     end
 
-    a_n = a_0 - k^q * g_n / gamma_0;
+    g_n = g_n + gamma_0/k^q * (a_n - a_0);
+
+    beta = norm(g_n)^2 / norm_g_nm1^2;
+
+    d_n = -g_n + beta * d_n;
+
+    alpha = (g_n.' * d_n)/norm(d_n)^2;
+
+    a_n = a_0 - k^q * alpha * d_n / gamma_0;
+
+    norm_g_nm1 = norm(g_n);
 
     if post_processing == "Cutoff"
         a_n(a_n < 1) = 1;

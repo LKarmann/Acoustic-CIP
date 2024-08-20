@@ -1,6 +1,6 @@
 function mesh_ref = refine_mesh(mesh,vertices)
-% Refines a mesh on every element having a vertex in vertices, using
-% midpoint algorithm.
+% Refines a mesh on every element having a vertex in vertices, using the
+% midpoint algorithm. Uses the function mshMidpoint from Gypsilab.
 % See documentation of Gypsilab.
 %
 % Arguments:

@@ -1,32 +1,33 @@
-function [U_list, mesh, t_list] = forward_solver_method2_2(h, dt, Nt, afun, pfun, om, delta, theta, Progression)
-% Solves the wave equation with mixed Neumann-Absorbing boundary conditions
-% as explained in Method 2.2.
-% See documentation of Gypsilab.
+function [Uh,mesh,t_list] = forward_solver_method2_2(h,dt,Nt,afun,pfun,t_1,delta,theta)
+% Solves the wave equation with mixed Neumann-Absorbing boundary conditions 
+% as described in Problem (2). Uses the damped Newmark numerical 
+% integration to solve the problem.
+% See documentation of Gypsilab and Appendix C.
 %
 % Arguments:
 % h ('scalar'): Mesh size parameter. Mesh grid should not have a finite
 %               element diameter greater than h.
-% dt ('scalar'): Time-step for the time discretization.
-% Nt ('integer'): Number of time-steps.
+% dt ('scalar'): Time step for the time discretisation.
+% Nt ('integer'): Number of time steps. Corresponds to Nt+1 time steps or
+%                 T = Nt x dt.
 % afun ('function_handle'): Wave speed function of 3D spatial variable.
-% pfun ('function_handle'): Boundary condition function that appears in
-%                           Method 2. Must be a function of time.
+% pfun ('function_handle'): Boundary condition function p(t). 
+%                           Must be a function of time.
+% t_1 ('scalar'): Time instant for changing the boundary condition on C(t).
 % delta ('scalar'): Parameter for the Newmark numerical integration.
 %                   Must be between 1/2 and 1.
 % theta ('scalar'): Parameter for the Newmark numerical integration.
 %                   Must be between 0 and 1/2.
-% Progression ('logical'): 1 means that the progression step is displayed.
 %
 % Returns:
-% U_list (Nx(Nt+1) 'double'): Values of the solution u on the N nodes of
-%                             the mesh at each time step.
+% Uh (Nx(Nt+1) 'double'): Values of the solution uh on the N nodes of
+%                         the mesh at each time step.
 % mesh ('msh'): Mesh used to solve.
 %               See documentation of Gypsilab.
-% t_list(1x(Nt+1) 'double'): Time discretization.
+% t_list (1x(Nt+1) 'double'): Time discretisation.
 
 
-
-% Discretization of the time
+% Discretisation of the time
 t_list = 0:dt:Nt*dt;
 
 
@@ -65,10 +66,7 @@ B = integral(Sigma, Vh, bound_fun);
 C1 = integral(Sigma, Vh, bound_fun_bot, Vh);
 C2 = integral(Sigma, Vh, bound_fun, Vh);
 
-C = @(t) C1 + (om * t > 2*pi)*C2;
 
-
-U_list = damped_newmark(M,C,K,@(t) pfun(t)*B,zeros(size(B)),zeros(size(B)),dt,Nt,delta,theta,Progression);
-
+Uh = damped_newmark(M,C1,C2,K,@(t) pfun(t)*B,zeros(size(B)),zeros(size(B)),dt,Nt,t_1,delta,theta);
 
 end

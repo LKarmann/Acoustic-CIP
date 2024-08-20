@@ -1,14 +1,15 @@
-function [wh, mesh] = forward_solver_method1(h, s, afun, pfun)
+function [wh,mesh] = forward_solver_method1(h,s,afun,pfun)
 % Solves the screened Poisson equation as explained in Method 1.
-% See documentation of Gypsilab.
+% See documentation of Gypsilab and Appendix D.1.
 %
 % Arguments:
 % h ('scalar'): Mesh size parameter. Mesh grid should not have a finite
 %               element diameter greater than h.
 % s ('scalar'): Pseudo-frequency at which equation is solved.
-% afun ('function_handle'): Wave speed function of 3D spatial variable.
+% afun ('function_handle'): Wave speed function of 3D-spatial variable.
 % pfun ('function_handle'): Boundary condition function that appears in
-%                           Method 1.
+%                           Method 1. Should be a function of the space.
+%                           Corresponds to the Laplace transform of p(t).
 %
 % Returns:
 % wh (Nx1 'double'): Values of the solution w on the N nodes of the mesh.

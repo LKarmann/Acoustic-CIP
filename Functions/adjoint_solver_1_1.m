@@ -1,16 +1,17 @@
-function lam = adjoint_solver_1_1(mesh, dt, Nt, a, deltau, bound)
-% Solves the adjoint problem for Equation 1.1 for the gradient method. It
-% is solved as in forward_solver2_1 but with delta = 1/2 and theta = 1/2.
-% See documentation of Gypsilab.
+function lam = adjoint_solver_1_1(mesh,dt,Nt,a,deltau,bound)
+% Solves the adjoint problem, Problem (10). Applies a similar method to
+% forward_solver_method2_1 with delta = 1/2 and theta = 1/2.
+% See documentation of Gypsilab and Appendix I.
 %
 % Arguments:
 % mesh ('msh'): Mesh used to solve the equation.
 %               See documentation of Gypsilab.
-% dt ('scalar'): Time-step for the time discretization.
-% Nt ('integer'): Number of time-steps.
+% dt ('scalar'): Time step for the time discretisation.
+% Nt ('integer'): Number of time steps. Corresponds to Nt+1 time steps or
+%                 T = Nt x dt.
 % a ('double'): Scattered values of an approximated acoustic wave
 %               coefficient.
-% deltau ('double'): Scattered values of u_til - u_n on a part of the
+% deltau ('double'): Scattered values of u_til - u on a part of the
 %                    boundary. Might be either the whole boundary or the
 %                    top side of the square.
 % bound ('logical'): Indicates if the scattered data are given on the whole
@@ -20,8 +21,6 @@ function lam = adjoint_solver_1_1(mesh, dt, Nt, a, deltau, bound)
 % Returns:
 % lam (Nx(Nt+1) 'double'): Values of the solution lambda on the N nodes of
 %                          the mesh at each time step.
-
-
 
 
 % Creation of the mesh
